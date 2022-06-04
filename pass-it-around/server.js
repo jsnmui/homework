@@ -17,15 +17,16 @@
 
    app.get('/:number_of_bottles', (req, res) => {
       let link =''   
+      let numberBottles = Number(req.params.number_of_bottles)
       let nextNum = req.params.number_of_bottles - 1
     
-    if (req.params.number_of_bottles > 0 ) {
+    if ( numberBottles  > 0 ) {
        link =  `<a href=/${nextNum}>take one down, pass it around</a>`
-    } else {
+    } else if ( numberBottles === 0) {
        link =  `<a href=/>Start Over</a>`
     }
 
-      res.send(`${req.params.number_of_bottles} bottles of beer on the wall.<br>${link}`)
+      res.send(`${numberBottles} bottles of beer on the wall.<br>${link}`)
     
     })
 
@@ -39,19 +40,20 @@
 
 
     app.get('/bonus/bugs/:number_of_bugs', (req, res) => {
-      let link =''   
-      let nextNum = req.params.number_of_bugs - 1
+      let link =''
+      let numberBugs = Number(req.params.number_of_bugs)   
+      let nextNum = numberBugs - 1
     
-    if (req.params.number_of_bugs > 0 ) {
-       link =  `<a href=/bonus/bugs/${nextNum}>take one down <br> Patch it around</a>`
-    } else if ( req.params.number_of_bugs <= 0 ) {
+    if ( numberBugs > 0 ) {
+       link =  `<a href=/bonus/bugs/${nextNum}>Take one down <br> Patch it around</a>`
+    } else if ( numberBugs === 0 ) {
        link =  `<a href=/bonus/bugs>Start Over</a>`
     }
       
     // ramdomly add a number to bug count
      
     let bugNum =  Math.floor(Math.random()*99)
-    let totalBugs= Number(req.params.number_of_bugs) + bugNum
+    let totalBugs= numberBugs + bugNum
       res.send(`${totalBugs} bugs in the code.<br>${link}`)
     
     })
