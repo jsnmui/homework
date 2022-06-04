@@ -30,7 +30,32 @@
     })
 
 
- 
+    //Bonus Bug Route
+  
+    app.get("/bonus/bugs", (req, res) => {
+      res.send('99 little bugs in the code <br> 99 little bugs <br><a href=/bonus/bugs/98>Take one down <br> Patch it around</a>')
+      
+    }); 
+
+
+    app.get('/bonus/bugs/:number_of_bugs', (req, res) => {
+      let link =''   
+      let nextNum = req.params.number_of_bugs - 1
+    
+    if (req.params.number_of_bugs > 0 ) {
+       link =  `<a href=/bonus/bugs/${nextNum}>take one down <br> Patch it around</a>`
+    } else if ( req.params.number_of_bugs <= 0 ) {
+       link =  `<a href=/bonus/bugs>Start Over</a>`
+    }
+      
+    // ramdomly add a number to bug count
+     
+    let bugNum =  Math.floor(Math.random()*99)
+    let totalBugs= Number(req.params.number_of_bugs) + bugNum
+      res.send(`${totalBugs} bugs in the code.<br>${link}`)
+    
+    })
+
 
 
 
